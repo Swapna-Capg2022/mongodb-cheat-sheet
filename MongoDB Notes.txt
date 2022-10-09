@@ -1,0 +1,376 @@
+MongoDB
+=======
+
+Document Based Data Base
+
+Mongodb is developed by MongoDB Inc.,
+
+MongoDB is founded in 2007
+
+Founders of  MongoDB is 
+
+Kevin P Ryan
+Eliot Horowitz
+Dwight Merriman
+
+Top 5 in Databases
+
+Mongodb is NoSQL DB.
+
+SQL DB's 
+=======
+Oracle 
+MySQL
+Microsoft SQL Server
+Postgre SQL
+
+NoSQL DBs
+==========
+MongoDB
+Cassandra
+Redis
+
+
+Advantages of MongoDB
+======================
+Easy to Use
+Designed to scale out
+Rich Features
+High Performance
+
+
+Data Formats of MongoDB
+=======================
+JSON =>Java Script Object Notation
+
+A JSON document is a collection of fields and values ina structured format:
+
+
+Example
+======
+
+Employee
+========
+
+{
+
+  "first_name" : "Krishna",
+  "last_name" : "Rama",
+    "age" : 23,
+    "skills" : ["programming","Java","Java Script","Rest API"]
+    "address" :{
+	  "houseNo" : "B-555",
+    	  "street" : "hitech city",
+	  "city" : " Hyderabad",
+	  "state"  : "Telangana"
+	},
+    "permanentaddress" :{
+	  "houseNo" : "5-6-237",
+    	  "street" : "Anjaneya swamy street",
+	  "city" : "East Godavari",
+	  "state"  : "Andhra Pradesh"
+	},
+    "officeaddress" :{
+	  "houseNo" : "4-555-3",
+    	  "street" : "hitech city",
+	  "city" : " Hyderabad",
+	  "state"  : "Telangana"
+	}
+}
+
+
+
+Customer
+========
+
+{
+
+  "first_name" : "Shiva",
+  "last_name" : "Rama",
+    "age" : 22,
+    "shopping interests" : ["Electronic Gadgets","Watches","Shoes"],
+    "address" :{
+	  "houseNo" : "B-525",
+    	  "street" : "Madhapur",
+	  "city" : " Hyderabad",
+	  "state"  : "Telangana"
+	},
+    "permanentaddress" :{
+	  "houseNo" : "53-61-237",
+    	  "street" : "Krishna swamy street",
+	  "city" : "East Godavari",
+	  "state"  : "Andhra Pradesh"
+	},
+    "officeaddress" :{
+	  "houseNo" : "14-2555-23",
+    	  "street" : "hitech city",
+	  "city" : " Hyderabad",
+	  "state"  : "Telangana"
+	},
+
+	"orders" : [{orderId : 11},{orderId : 22},{orderId : 33},{orderId : 34}],
+        "refundstatus": "true"
+}
+
+
+oracle SQL
+==========
+CREATE TABLE schema_name.table_name (
+    column_1 data_type column_constraint,
+    column_2 data_type column_constraint,
+    ...
+    table_constraint
+ );
+
+MySQL SQL
+=========
+CREATE TABLE [IF NOT EXISTS] table_name(
+   column_1_definition,
+   column_2_definition,
+   ...,
+   table_constraints
+) ENGINE=storage_engine;
+
+show dbs => to show all databases
+use <dbname>; => to create an new database
+example
+=======
+use mongodbexample;
+
+db  => to show current database
+===
+example
+=======
+> db
+mongodbexample
+
+db.<collectionname>
+====================
+to create a collection in current database
+
+example
+=======
+> db.books
+mongodbexample.books
+
+insert one document/value in the above created collection
+============================================================
+> db.books.insertOne({
+... bookTitle : "Complete Reference Java",
+... bookPrice : 450,
+... });
+
+output:
+=======
+{
+        "acknowledged" : true,
+        "insertedId" : ObjectId("6341932eeb5ba51d4da8c9be")
+}
+
+
+insert more than one document/value in the above created collection
+====================================================================db.books.insertMany([{ bookTitle : "Complete Reference Java", bookPrice : 450, },{bookTitle : "Complete Reference C#", bookPrice : 550},{bookTitle : "Complete Reference Python", bookPrice : 650}]);
+
+output:
+=======
+{
+        "acknowledged" : true,
+        "insertedIds" : [
+                ObjectId("63419434eb5ba51d4da8c9bf"),
+                ObjectId("63419434eb5ba51d4da8c9c0"),
+                ObjectId("63419434eb5ba51d4da8c9c1")
+        ]
+}
+
+
+to display all documents inside the collection
+===============================================
+db.books.find();
+
+
+to display all documents inside the collection in readble format
+================================================================
+db.books.find().pretty();
+
+
+to find document based on any field (bookTitle)
+===============================================
+> db.books.find({bookTitle:"Complete Reference Java"}).pretty();
+
+output:
+=======
+{
+        "_id" : ObjectId("6341932eeb5ba51d4da8c9be"),
+        "bookTitle" : "Complete Reference Java",
+        "bookPrice" : 450
+}
+{
+        "_id" : ObjectId("63419434eb5ba51d4da8c9bf"),
+        "bookTitle" : "Complete Reference Java",
+        "bookPrice" : 450
+}
+
+
+to find document based on ObjectId
+===============================================
+db.books.find({_id:ObjectId("63419434eb5ba51d4da8c9bf")}).pretty();
+
+output:
+=======
+
+{
+        "_id" : ObjectId("63419434eb5ba51d4da8c9bf"),
+        "bookTitle" : "Complete Reference Java",
+        "bookPrice" : 450
+}
+
+> db.books.find({_id:ObjectId("63419434eb5ba51d4da8c9")}).pretty();
+Error: invalid object id: length :
+@(shell):1:20
+
+> db.books.find({_id:ObjectId("63419434eb5ba51d4da8c988")}).pretty();
+
+
+insert nested document
+======================
+db.customer.insertOne(
+{
+
+ "first_name" : "Raja",
+  "last_name" : "Rama",
+   "age" : 24,
+   "shopping interests" : ["Electronic Gadgets","Watches","Shoes"],
+  "address" :{
+ "houseNo" : "B-1525",
+     "street" : "KPHB",
+  "city" : " Hyderabad",
+  "state"  : "Telangana"
+ },
+   "permanentaddress" :{
+ "houseNo" : "153-61-237",
+      "street" : "Rama swamy street",
+  "city" : "East Godavari",
+   "state"  : "Andhra Pradesh"
+ },
+     "officeaddress" :{
+  "houseNo" : "143-2545-23",
+      "street" : "hitech city",
+   "city" : " Hyderabad",
+   "state"  : "Telangana"
+ },
+
+"orders" : [{orderId : 11},{orderId : 22},{orderId : 33},{orderId : 34}],
+        "refundstatus": "true"
+ }
+);
+
+
+Practice
+========
+create a database with name ordermanagementsystem
+
+create a collection called customer (customerName,customerEmail,customerMobno,customerAddress)
+
+create a collection called vendor  (vendorName,vendorEmail,vendorMobno,vendorAddress)
+
+create a collection called orders (orderstatus,orderamt)
+
+insert multiple values in the above collections
+
+display all values from each collection using pretty
+
+
+
+
+Projection
+===========
+ db.customer.find({},{first_name:1,last_name:1,age:1}).pretty();
+
+Selection
+=========
+ db.customer.find({},{first_name:1,last_name:1,age:1}).pretty();
+
+Selection and Projection
+========================
+db.customer.find({first_name:"Shiva"},{first_name:1,last_name:1,age:1}).pretty();
+
+
+
+Data Types in MongoDB
+======================
+Null 
+====
+a field does not exist
+
+example
+=======
+{
+   "noOfPages" : null
+}
+
+Boolean
+=======
+two values true or false
+example
+=======
+{
+   "best_seller" : true
+}
+
+
+Number
+======
+By default, the mongo shell uses the 64-bit floating point number
+
+example
+=======
+{
+   "noOfPages" : 456,
+   "bookPrice" : 345.67
+}
+
+String
+======
+{
+ "bookName" : "MongoDB"
+}
+
+Date
+====
+{
+
+   "updated_at" : new Date()
+}
+
+Array
+=====
+{
+ bookReviews : ["Jin",4,"Johny",4.5]
+}
+
+
+ObjectID
+========
+
+12 byte ObjectId Consists of
+===============================
+==> A 4 byte timestamp values that represents the ObjectId generated time measure in secs since Unix       epoch.(The Unix epoch is 00:00:00 UTC on 1 January 1970.)
+==> A 5 byte random value
+==> A 3 byte increment counter ,intialized to a random value
+
+Delete one document
+====================
+db.books.deleteOne({bookName: "Complete Reference Java"})
+
+
+
+
+
+
+
+
+
+
+
+
+
